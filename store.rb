@@ -6,13 +6,19 @@ class Store
   
   def initialize(filename)
     @filename = filename
-    @playlists = load_list
+    @tasks = load_list
   end
 
   def load_list
     JSON.parse(File.read(@filename), symbolize_names: true).map do |list|
       Board.new(name: list[:name], description: list[:description], lists: list[:lists], id: list[:id])
     end
+  end
+
+  def update_b(id, data)
+    found_board=@tasks.find {|list| list.id == id}
+    found_board=update_board(data)
+    File.write(@filename, @tasks.to_json)
   end
 
   # def append_playlist(playlist)
