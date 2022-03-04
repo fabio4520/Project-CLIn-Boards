@@ -1,9 +1,9 @@
-require 'json'
-require_relative 'board'
+require "json"
+require_relative "board"
 
 class Store
-  attr_reader :playlists
-  
+  attr_reader :tasks
+
   def initialize(filename)
     @filename = filename
     @tasks = load_list
@@ -11,14 +11,20 @@ class Store
 
   def load_list
     JSON.parse(File.read(@filename), symbolize_names: true).map do |list|
-      Board.new(name: list[:name], description: list[:description], lists: list[:lists], id: list[:id])
+      Board.new(list)
     end
   end
 
+  # manipular el archivo json
   def update_b(id, data)
-    found_board=@tasks.find {|list| list.id == id}
-    found_board=update_board(data)
+    found_board = @tasks.find { |list| list.id == id }
+    p found_board
+    found_board = update_board(data)
     File.write(@filename, @tasks.to_json)
+  end
+
+  def find_task(id)
+    @tasks.find { |task| task.id == id.to_i }
   end
 
   # def append_playlist(playlist)
@@ -60,7 +66,6 @@ class Store
   #   found_song.update(data)
   #   File.write(@filename, @playlists.to_json)
   # end
-
 end
 
 nuevo = Store.new("store.json")
