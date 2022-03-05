@@ -28,8 +28,7 @@ class Board
     @description = data[:description] unless data[:description].empty?
   end
 
-  def verificación_id
-    id = ""
+  def verificación_id(id)
     while id.empty?
       print "ID: "
       id = gets.chomp.to_i

@@ -24,7 +24,7 @@ class Card
     end
   end
 
-  def checklist_id(found_card,id)
+  def show_card_checklist(found_card,id)
     puts "Card: #{found_card.title}"
     found_card.checklist.each_with_index { |check_item, index| puts "[#{checklist_completed(check_item)}] #{index + 1}. #{check_item[:title]}" }
   end
@@ -33,6 +33,28 @@ class Card
     valor = " "
     valor = "x" if check_item[:completed]
     valor
+  end
+
+  def add_check_item_method(found_card, id)
+    title = add_check_item
+    found_card.checklist.append({title: title, completed: false})
+    show_card_checklist(found_card,id)
+  end
+
+  def toggle_check_item(found_card, id_check, id)
+    # found_card => objeto del tipo Card
+    a = found_card.checklist[id_check.to_i-1][:completed]
+    if a
+      found_card.checklist[id_check.to_i-1][:completed] = false
+    else
+      found_card.checklist[id_check.to_i-1][:completed] = true
+    end
+    show_card_checklist(found_card,id)
+  end
+
+  def delete_check_item(found_card, id_check, id)
+    found_card.checklist.delete_at(id_check.to_i-1)
+    show_card_checklist(found_card,id)
   end
 
 end
