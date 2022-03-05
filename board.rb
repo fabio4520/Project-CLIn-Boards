@@ -14,12 +14,12 @@ class Board
 
   def print_details
     details = @lists.map { |list| "#{list.name}(#{list.cards.size})" }.join(", ")
-    # details = [ "todo(4)", "" , "", ""]
+    # details = [ "todo(3)", "" , "", ""]
     [@id, @name, @description, details]
   end
 
   def to_json(*_args)
-    { id: @id, name: @name, description: @description, list: @lists }
+    { id: @id, name: @name, description: @description, lists: @lists }
   end
 
   # arreglo de hashes

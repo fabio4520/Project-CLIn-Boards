@@ -16,7 +16,7 @@ module Prompter
 
   def card_list_menu
     puts "List options: create-list | update-list LISTNAME | delete list LISTNAME"
-    puts "Card options: create-card | checlkist ID | update-card ID | delete-card ID"
+    puts "Card options: create-card | checklist ID | update-card ID | delete-card ID"
     puts "back"
     print "> "
     action, id = gets.chomp.split
@@ -24,7 +24,7 @@ module Prompter
   end
 
   def checklist_menu
-    puts "-" * 35
+    puts "-" * 37
     puts "Checklist options: add | toggle INDEX | delete INDEX"
     puts "back"
     print "> "
