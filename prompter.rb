@@ -100,10 +100,10 @@ module Prompter
     {id: nil, name: name, cards: []}
   end
 
-  def update_list(id)
+  def update_list_form(name)
     print "Name: "
     name = gets.chomp
-    {id: id, name: name, cards: []}
+    {id: nil, name: name, cards: []}
   end
 
   #### exit ####

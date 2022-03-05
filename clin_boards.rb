@@ -66,7 +66,7 @@ class ClinBoards
       when "delete-card" then delete_card(found_board, id)
       # LISTS
       when "create-list" then create_list(found_board)
-      when "update-list" then puts ""# update_list(found_board, id)
+      when "update-list" then update_list(found_board, id)
       when "delete-list" then delete_list(found_board, id)
       end
     end
@@ -77,14 +77,16 @@ class ClinBoards
   def delete_list(found_board, id)
     name = id
     # id es un String. Ej. Todo
-    found_list, id = find_list(found_board, name)
+    found_list, name = find_list(found_board, name)
     found_board.delete_list(found_list)
   end
 
   def update_list(found_board, id)
     name = id
     found_list, id = find_list(found_board, id)
-    delete_list(found_board, name)
+    # delete_list(found_board, name)
+    list_hash = update_list_form(name)
+    found_board.update_list(list_hash, found_list)
   end
 
   def create_list(found_board)

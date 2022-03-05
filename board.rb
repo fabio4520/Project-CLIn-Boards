@@ -32,6 +32,13 @@ class Board
     @lists.append(List.new(list))
   end
 
+  def update_list(list_hash, found_list)
+    # p found_list
+    index = @lists.index(found_list)
+    # p index
+    @lists[index] = List.new(list_hash)
+  end
+
   def delete_list(found_list)
     index = @lists.index(found_list)
     @lists.delete_at(index)
