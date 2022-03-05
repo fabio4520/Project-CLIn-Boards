@@ -33,20 +33,18 @@ module Prompter
   end
 
   #### BOARD PROMPTS ####
-  def create_board
-    print "Name "
+  def create_board_form
+    print "Name: "
     name = gets.chomp
     print "Description: "
     description = gets.chomp
-    [name, description]
+    { name: name, description: description, lists: [] }
   end
 
   def update_board_form
-    print "> update"
-    id = gets.chomp.to_i
     print "Name: "
     name = gets.chomp
-    print "Description "
+    print "Description: "
     description = gets.chomp
     { name: name, description: description }
   end

@@ -15,20 +15,40 @@ class ClinBoards
     # Complete this
     action = ""
     welcome_board
-    print_tasks
-    until action == "exit"      
+    until action == "exit"
+      print_tasks
       action, id = board_menu
 
       case action
-      when "create" then create_playlist
+      when "create" then create_board
       when "show" then show_tasks(id)
-      when "update" then puts "Update"
+      when "update" then update_board(id)
       when "delete" then delete_board(id)
       when "exit" then puts exit
       else
         puts "Invalid option!"
       end
     end
+  end
+  
+  def find_board(id)
+    @tasks.find { |task| task.id == id.to_i }
+  end
+
+  def create_board
+    new_data = create_board_form
+    new_board = Board.new(new_data)
+    @tasks.push(new_board)
+  end
+
+  def update_board(id)
+    old_board = find_board(id)
+    new_board = update_board_form
+    old_board.update_b(new_board)
+  end
+
+  def delete_board(id)
+    @store.delete_board(id)
   end
 
   def show_tasks(id)
@@ -88,6 +108,7 @@ class ClinBoards
     table.rows = @tasks.map(&:print_details)
     puts table
   end
+
   
   def find_card(found_board, id)
     found_card = found_board.lists.map do |list|
@@ -110,6 +131,7 @@ class ClinBoards
   def delete_board(id)
     @store.delete_board(id)
   end
+
 
 end
 
