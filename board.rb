@@ -28,6 +28,15 @@ class Board
     @description = data[:description] unless data[:description].empty?
   end
 
+  def create_list(list)
+    @lists.append(List.new(list))
+  end
+
+  def delete_list(found_list)
+    index = @lists.index(found_list)
+    @lists.delete_at(index)
+  end
+
   def verificación_id(id)
     while id.empty?
       print "ID: "
