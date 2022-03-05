@@ -15,13 +15,22 @@ class Store
     end
   end
 
+  # def create_board(name:, description:, id: nil, lists: [])
+  #   new_board = Board.new(new_data)
+  # end
+  
   # manipular el archivo json
-  def update_b(id, data)
-    found_board = @tasks.find { |list| list.id == id }
-    p found_board
-    found_board = update_board(data)
-    File.write(@filename, @tasks.to_json)
+  def update_board(id, data) # pendiente cambio en el archivo .json
+    updateable_board = find_task(id)
+    @tasks.update_b(data)
+    # File.read(@filename, @tasks.to_json) #=>
   end
+
+  # def update_b(id, data)
+  #   found_board = @tasks.find { |list| list.id == id }
+  #   found_board = update_board(data)
+  #   File.write(@filename, @tasks.to_json)
+  # end
 
   def find_task(id)
     @tasks.find { |task| task.id == id.to_i }
@@ -32,11 +41,6 @@ class Store
     File.write(@filename, @tasks.to_json)
   end
 
-
-  # def append_playlist(playlist)
-  #   @playlists << playlist
-  #   File.write(@filename, @playlists.to_json)
-  # end
 
   # def update_playlist(id, data)
   #   found_playlist = find_list(id)
