@@ -51,35 +51,38 @@ module Prompter
 
   #### CARD PROMPTS #####
 
-  ##
-  def create_card_form
+  def create_card_form(found_board)
+    details = found_board.lists.map { |list| "#{list.name}" }.join(" | ")
     puts "Select a list:"
-    #   puts "#{} | #{} | #{} | #{}" #==> listas existentes
-    name = gets.chomp
+    puts details
+    print "> "
+    list = gets.chomp
     print "Title: "
     title = gets.chomp
     print "Members: "
-    members = gets.chomp
+    members = gets.chomp.split(", ")
     print "Labels: "
-    labels = gets.chomp
+    labels = gets.chomp.split(", ")
     print "Due Date: "
     due_date = gets.chomp
-    { name: name, title: title, members: members, labels: labels, due_date: due_date }
+    [{id: nil,title: title, members: members, labels: labels, due_date: due_date, checklist: [] }, list]
   end
 
-  def update_card
+  def update_card_form(found_board, id)
+    details = found_board.lists.map { |list| "#{list.name}" }.join(" | ")
     puts "Select a list:"
-    #   puts "#{} | #{} | #{} | #{}" #==> listas existentes
-    name = gets.chomp
+    puts details
+    print "> "
+    list = gets.chomp
     print "Title: "
     title = gets.chomp
     print "Members: "
-    members = gets.chomp
+    members = gets.chomp.split(", ")
     print "Labels: "
-    labels = gets.chomp
+    labels = gets.chomp.split(", ")
     print "Due Date: "
     due_date = gets.chomp
-    { name: name, title: title, members: members, labels: labels, due_date: due_date }
+    [{id: id,title: title, members: members, labels: labels, due_date: due_date, checklist: [] }, list]
   end
 
   #### CHECKLIST PROMPTS ####

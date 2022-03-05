@@ -38,7 +38,7 @@ class Store
 
   def delete_board(id)
     @tasks.reject! { |board| board.id == id.to_i }
-    File.write(@filename, @tasks.to_json)
+    # File.write(@filename, @tasks.to_json)
   end
 
   def update_card(id, data)

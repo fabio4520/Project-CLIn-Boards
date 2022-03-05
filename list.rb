@@ -18,4 +18,24 @@ class List
     end
   end
 
+  def create_card(hash)
+    @cards.append(Card.new(hash))
+  end
+
+  def update_card(hash, id)
+    card_found = @cards.find { |card| card.id == id.to_i }
+    if card_found.nil?
+      create_card(hash)
+    else
+      index = @cards.index(card_found)
+      @cards[index] = Card.new(hash)
+    end    
+  end
+
+  def delete_card(id)
+    card_found = @cards.find { |card| card.id == id.to_i }
+    index = @cards.index(card_found)
+    @cards.delete_at(index)
+  end
+
 end
