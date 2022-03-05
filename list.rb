@@ -29,7 +29,7 @@ class List
     else
       index = @cards.index(card_found)
       @cards[index] = Card.new(hash)
-    end    
+    end
   end
 
   def delete_card(id)
@@ -37,5 +37,4 @@ class List
     index = @cards.index(card_found)
     @cards.delete_at(index)
   end
-
 end

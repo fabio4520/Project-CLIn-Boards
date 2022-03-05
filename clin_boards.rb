@@ -57,14 +57,14 @@ class ClinBoards
     until action == "back"
       print_lists_tasks(found_board)
       action, id = card_list_menu
-      if action == "checklist" || action.match?(/card/)
-        # este if es para crear un bucle para los Card options
-        case action
-        when "checklist" then checklist(found_board, id)
-        when "create-card" then create_card(found_board)
-        when "update-card" then update_card(found_board, id)
-        when "delete-card" then delete_card(found_board, id)
-        end
+      next unless action == "checklist" || action.match?(/card/)
+
+      # este if es para crear un bucle para los Card options
+      case action
+      when "checklist" then checklist(found_board, id)
+      when "create-card" then create_card(found_board)
+      when "update-card" then update_card(found_board, id)
+      when "delete-card" then delete_card(found_board, id)
       end
     end
   end
@@ -93,20 +93,20 @@ class ClinBoards
     card_hash, list_name = create_card_form(found_board)
     # list_name = string. Ej. Todo
     list_chosen = found_board.lists.find { |list| list.name == list_name }
-    #list_chosen = Object. Objeto de la clase List
+    # list_chosen = Object. Objeto de la clase List
     list_chosen.create_card(card_hash)
   end
 
-  def checklist(found_board,id)
-    found_card, id = find_card(found_board,id)
-    found_card.show_card_checklist(found_card,id)
+  def checklist(found_board, id)
+    found_card, id = find_card(found_board, id)
+    found_card.show_card_checklist(found_card, id)
     action = ""
     until action == "back"
       action, id_check = checklist_menu
       case action
       when "add" then found_card.add_check_item_method(found_card, id)
       when "toggle" then found_card.toggle_check_item(found_card, id_check, id)
-      when "delete" then found_card.delete_check_item(found_card,id_check, id)
+      when "delete" then found_card.delete_check_item(found_card, id_check, id)
       else
         puts "Invalid option" if action != "back"
       end
@@ -121,12 +121,12 @@ class ClinBoards
         [card.id, card.title, card.members.join(", "), card.labels.join(", "), card.due_date, card.checklist.size]
       end
     end
-    
+
     (0...title.length).each do |i|
       print_lists_general(title[i], headings, rows[i])
     end
   end
-  
+
   def print_lists_general(title, headings, rows)
     table = Terminal::Table.new
     table.title = title
@@ -134,7 +134,7 @@ class ClinBoards
     table.rows = rows
     puts table
   end
-  
+
   def print_tasks
     table = Terminal::Table.new
     table.title = "CLIn Boards"
@@ -145,7 +145,7 @@ class ClinBoards
 
   def find_card(found_board, id)
     found_card = found_board.lists.map do |list|
-      list.cards.find { |card| card.id == id.to_i}
+      list.cards.find { |card| card.id == id.to_i }
     end
     found_card.compact!
     while found_card[0].nil?
@@ -153,12 +153,12 @@ class ClinBoards
       print "Id: "
       id = gets.chomp
       found_card = found_board.lists.map do |list|
-        list.cards.find { |card| card.id == id.to_i}
+        list.cards.find { |card| card.id == id.to_i }
       end
       found_card.compact!
       # p found_card[0]
     end
-    return found_card[0], id.to_i
+    [found_card[0], id.to_i]
   end
 
   def find_board(id)
@@ -175,7 +175,6 @@ class ClinBoards
   def delete_board(id)
     @store.delete_board(id)
   end
-
 end
 
 # get the command-line arguments if neccesary

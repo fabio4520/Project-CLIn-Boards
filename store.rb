@@ -18,9 +18,10 @@ class Store
   # def create_board(name:, description:, id: nil, lists: [])
   #   new_board = Board.new(new_data)
   # end
-  
+
   # manipular el archivo json
-  def update_board(id, data) # pendiente cambio en el archivo .json
+  # pendiente cambio en el archivo .json
+  def update_board(id, data)
     updateable_board = find_task(id)
     @tasks.update_b(data)
     # File.read(@filename, @tasks.to_json) #=>
@@ -41,7 +42,7 @@ class Store
     # File.write(@filename, @tasks.to_json)
   end
 
-  def update_card(id, data)
+  def update_card(id, _data)
     found_task = find_task(id)
     File.write(@filename, @tasks.to_json)
   end

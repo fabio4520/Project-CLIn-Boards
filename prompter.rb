@@ -52,7 +52,7 @@ module Prompter
   #### CARD PROMPTS #####
 
   def create_card_form(found_board)
-    details = found_board.lists.map { |list| "#{list.name}" }.join(" | ")
+    details = found_board.lists.map { |list| list.name.to_s }.join(" | ")
     puts "Select a list:"
     puts details
     print "> "
@@ -65,11 +65,11 @@ module Prompter
     labels = gets.chomp.split(", ")
     print "Due Date: "
     due_date = gets.chomp
-    [{id: nil,title: title, members: members, labels: labels, due_date: due_date, checklist: [] }, list]
+    [{ id: nil, title: title, members: members, labels: labels, due_date: due_date, checklist: [] }, list]
   end
 
   def update_card_form(found_board, id)
-    details = found_board.lists.map { |list| "#{list.name}" }.join(" | ")
+    details = found_board.lists.map { |list| list.name.to_s }.join(" | ")
     puts "Select a list:"
     puts details
     print "> "
@@ -82,7 +82,7 @@ module Prompter
     labels = gets.chomp.split(", ")
     print "Due Date: "
     due_date = gets.chomp
-    [{id: id,title: title, members: members, labels: labels, due_date: due_date, checklist: [] }, list]
+    [{ id: id, title: title, members: members, labels: labels, due_date: due_date, checklist: [] }, list]
   end
 
   #### CHECKLIST PROMPTS ####
