@@ -23,9 +23,9 @@ class Board
   end
 
   # arreglo de hashes
-  def update_board(data)
-    data[:name] = data[:name].empty? == true ? @name : name
-    data[:description] = data[:description].empty? == true ? @description : description
+  def update_b(data)
+    @name = data[:name] unless data[:name].empty?
+    @description = data[:description] unless data[:description].empty?
   end
 
   def verificación_id
