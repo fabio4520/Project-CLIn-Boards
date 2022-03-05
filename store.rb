@@ -32,6 +32,10 @@ class Store
     File.write(@filename, @tasks.to_json)
   end
 
+  def update_card(id, data)
+    found_task = find_task(id)
+    File.write(@filename, @tasks.to_json)
+  end
 
   # def append_playlist(playlist)
   #   @playlists << playlist
@@ -55,11 +59,6 @@ class Store
 
   # def find_song(list, id)
   #   list.songs.find { |song| song.id == id.to_i }
-  # end
-
-  # def append_song(list, song)
-  #   list.songs << song
-  #   File.write(@filename, @playlists.to_json)
   # end
 
   # def remove_song(list, id)
