@@ -1,4 +1,7 @@
+require_relative 'prompter'
+
 class Card
+  include Prompter
   attr_reader :id, :title, :members, :labels, :due_date, :checklist
 
   @@id_sequence = 0
@@ -20,4 +23,16 @@ class Card
       @@id_sequence = id if id > @@id_sequence
     end
   end
+
+  def checklist_id(found_card,id)
+    puts "Card: #{found_card.title}"
+    found_card.checklist.each_with_index { |check_item, index| puts "[#{checklist_completed(check_item)}] #{index + 1}. #{check_item[:title]}" }
+  end
+
+  def checklist_completed(check_item)
+    valor = " "
+    valor = "x" if check_item[:completed]
+    valor
+  end
+
 end

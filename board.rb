@@ -14,7 +14,7 @@ class Board
 
   def print_details
     details = @lists.map { |list| "#{list.name}(#{list.cards.size})" }.join(", ")
-    # details = [ "todo(4)", "" , "", ""]
+    # details = [ "todo(3)", "" , "", ""]
     [@id, @name, @description, details]
   end
 

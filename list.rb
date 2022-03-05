@@ -17,4 +17,5 @@ class List
       @@id_sequence = id if id > @@id_sequence
     end
   end
+
 end
