@@ -23,7 +23,7 @@ class ClinBoards
       when "create" then create_playlist
       when "show" then show_tasks(id)
       when "update" then puts "Update"
-      when "delete" then puts "Deleted"
+      when "delete" then delete_board(id)
       when "exit" then puts exit
       else
         puts "Invalid option!"
@@ -86,8 +86,13 @@ class ClinBoards
     puts table
   end
 
+
   def find_board(id)
     @tasks.find { |task| task.id == id.to_i }
+  end
+
+  def delete_board(id)
+    @store.delete_board(id)
   end
 
 end

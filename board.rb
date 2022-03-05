@@ -19,7 +19,7 @@ class Board
   end
 
   def to_json(*_args)
-    { id: @id, name: @name, description: @description, lists: @lists }
+    { id: @id, name: @name, description: @description, list: @lists }.to_json
   end
 
   # arreglo de hashes
