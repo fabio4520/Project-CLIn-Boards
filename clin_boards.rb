@@ -23,7 +23,7 @@ class ClinBoards
       when "create" then create_playlist
       when "show" then show_tasks(id)
       when "update" then puts "Update"
-      when "delete" then puts "Deleted"
+      when "delete" then delete_board(id)
       when "exit" then puts exit
       else
         puts "Invalid option!"
@@ -64,6 +64,10 @@ class ClinBoards
     table.headings = ["ID", "Name", "Description", "List(#cards)"]
     table.rows = @tasks.map(&:print_details)
     puts table
+  end
+
+  def delete_board(id)
+    @store.delete_board(id)
   end
 end
 

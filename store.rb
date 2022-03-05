@@ -27,6 +27,12 @@ class Store
     @tasks.find { |task| task.id == id.to_i }
   end
 
+  def delete_board(id)
+    @tasks.reject! { |board| board.id == id.to_i }
+    File.write(@filename, @tasks.to_json)
+  end
+
+
   # def append_playlist(playlist)
   #   @playlists << playlist
   #   File.write(@filename, @playlists.to_json)
