@@ -57,27 +57,47 @@ class ClinBoards
     until action == "back"
       print_lists_tasks(found_board)
       action, id = card_list_menu
-      next unless action == "checklist" || action.match?(/card/)
-
       # este if es para crear un bucle para los Card options
       case action
+      # CARDS
       when "checklist" then checklist(found_board, id)
       when "create-card" then create_card(found_board)
       when "update-card" then update_card(found_board, id)
       when "delete-card" then delete_card(found_board, id)
+      # LISTS
+      when "create-list" then create_list(found_board)
+      when "update-list" then puts ""# update_list(found_board, id)
+      when "delete-list" then delete_list(found_board, id)
       end
     end
   end
 
-  def delete_card(found_board, id)
-    # card_found = found_board.lists.map do |list|
-    #   list.cards.find { |card| card.id == id.to_i }
-    # end
-    # card_found = card_found.compact![0]
-    card_found, id = find_card(found_board, id)
+  # LIST METHODS
 
+  def delete_list(found_board, id)
+    name = id
+    # id es un String. Ej. Todo
+    found_list, id = find_list(found_board, name)
+    found_board.delete_list(found_list)
+  end
+
+  def update_list(found_board, id)
+    name = id
+    found_list, id = find_list(found_board, id)
+    delete_list(found_board, name)
+  end
+
+  def create_list(found_board)
+    list_hash = create_list_form
+    found_board.create_list(list_hash)
+  end
+
+  # CARDS METHODS
+  def delete_card(found_board, id)
+    name = id
+    card_found, name = find_card(found_board, name)
     list_found = found_board.lists.find { |list| list.cards.find { |card| card == card_found } }
-    list_found.delete_card(id)
+    list_found.delete_card(name)
   end
 
   def update_card(found_board, id)
@@ -112,7 +132,7 @@ class ClinBoards
       end
     end
   end
-
+  # PRINT METHODS
   def print_lists_tasks(found_board)
     title = found_board.lists.map(&:name) # ["Todo", "In Progress", ...]
     headings = ["ID", "Title", "Members", "Labels", "Due Date", "Checklist"]
@@ -142,6 +162,20 @@ class ClinBoards
     table.rows = @tasks.map(&:print_details)
     puts table
   end
+  #FIND METHODS
+
+  def find_list(found_board, name)
+    # # id es un string. Ej. Todo
+    found_list = found_board.lists.find { |list| list.name == name }
+    while found_list.nil?
+      puts "Invalid name!"
+      print "name: "
+      name = gets.chomp
+      found_list = found_board.lists.find { |list| list.name == name }
+    end
+    [found_list, name]
+    # p found_list = found_board.lists.find { |list| list.name == id }
+  end
 
   def find_card(found_board, id)
     found_card = found_board.lists.map do |list|
@@ -170,10 +204,6 @@ class ClinBoards
       found_board = @tasks.find { |task| task.id == id.to_i }
     end
     found_board
-  end
-
-  def delete_board(id)
-    @store.delete_board(id)
   end
 end
 

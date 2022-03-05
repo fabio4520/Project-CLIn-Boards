@@ -15,7 +15,7 @@ module Prompter
   end
 
   def card_list_menu
-    puts "List options: create-list | update-list LISTNAME | delete list LISTNAME"
+    puts "List options: create-list | update-list LISTNAME | delete-list LISTNAME"
     puts "Card options: create-card | checklist ID | update-card ID | delete-card ID"
     puts "back"
     print "> "
@@ -94,14 +94,16 @@ module Prompter
 
   #### LIST PROMPTS ####
 
-  def create_list
+  def create_list_form
     print "Name: "
     name = gets.chomp
+    {id: nil, name: name, cards: []}
   end
 
-  def update_list
+  def update_list(id)
     print "Name: "
     name = gets.chomp
+    {id: id, name: name, cards: []}
   end
 
   #### exit ####
